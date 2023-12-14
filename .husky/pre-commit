@@ -1,0 +1,50 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🕵️  Let's check that code quality";
+
+# Check Prettier Standards
+npm run check-format ||
+(
+  echo "❌ 🤢 Format check failed:";
+  echo "\n\t'npm run format': To format with Prettier, add changes and try commiting again\n";
+  false;
+)
+
+# Check ESLint Standards
+npm run check-lint ||
+(
+  echo "❌ 🤢 Lint check failed:";
+  echo "\n\t'npm run lint': Make the changes proposed, add changes and try again\n";
+  false;
+)
+
+# All checks passed
+echo "😎 Code is looking good. Let's try to test 🧪 and build 🛠️";
+
+# Testing
+npm run test:cov ||
+(
+  echo "❌ 🤢 Test failed:";
+  echo "\n\t'yarn run test': Fix errors, add changes and try again\n";
+  false;
+)
+
+# Build
+npm run build ||
+(
+  echo "❌ 🤢 Build failed:";
+  echo "\n\t'npm run build': Fix errors, add changes and try again\n";
+  false;
+)
+
+# Coverage badges
+npx istanbul-badges-readme --logo="jest" && git add 'README.md'||
+(
+  echo "❌ 🤢 Badge creation failed:";
+  echo "\n\t https://github.com/the-bugging/istanbul-badges-readme/blob/develop/README.md: Fix errors, add changes and try again\n";
+  false;
+)
+
+# Ready to commit
+echo "✅ 👩‍🚀 Mision control, code is ready to 🚀 push to commit"

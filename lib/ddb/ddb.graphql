@@ -1,0 +1,9 @@
+type PetBreed {
+  partitionKey: String
+  sortKey: String
+  desc: String
+}
+
+type Query {
+  getPetBreed: PetBreed
+}

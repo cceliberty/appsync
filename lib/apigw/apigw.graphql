@@ -1,0 +1,10 @@
+type Pets {
+  id: ID
+  type: String
+  price: Float
+}
+
+type Query {
+  getPetById(id: Int!): Pets
+  getPets: [Pets]
+}

@@ -1,0 +1,9 @@
+cdk.out
+node_modules
+.env
+docs
+img
+*.d.ts
+*.js
+coverage
+out

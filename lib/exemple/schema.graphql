@@ -1,0 +1,11 @@
+type Todo {
+  id: ID
+  title: String
+  completed: Boolean
+  createdAt: AWSDateTime @deprecated
+  completedAt: AWSDateTime
+}
+
+type Query {
+  getTodoWithUnitResolver(id: ID!): Todo
+}
